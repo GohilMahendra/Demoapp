@@ -1,0 +1,25 @@
+
+
+
+{
+
+    "Splash_backgroundcolor":"black",
+
+    "url":"https://www.facebook.com/",
+
+    "Splash_titleText":"MY DEMO APP",
+    "Splash_titleTagLine":"WE ARE JUST CREATING...",
+    "Splash_titleFontcolor":"white",
+    "Splash_titleFontSize":45,
+
+
+    "SecondScreenName":"Home"
+   , "splash_background_image":
+        {
+            "URI":"../assets/images/spalsh_background.png",
+            "height":"100%",
+            "Width":"100%",
+            "Blur":1
+
+        }
+}
