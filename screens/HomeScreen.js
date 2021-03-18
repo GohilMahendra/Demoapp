@@ -113,7 +113,7 @@ style={{height:height,width:width}}>
 
 source={{uri:url}}
 ref={webviewRef}
-style={{flex:1,height:height}}
+style={{flex:1,height:height,width:width}}
   //  onLoadProgress={()=>setload(true)}
     onLoadEnd={()=>{setload(false),setrefr(false)}}
     
