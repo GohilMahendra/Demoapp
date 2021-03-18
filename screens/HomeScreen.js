@@ -1,21 +1,79 @@
-import  React  from "react";
+import { useNavigation } from "@react-navigation/core";
+import  React ,{useState,useRef} from "react";
 import { useEffect } from "react";
-import { View ,Text,PermissionsAndroid,Permission} from "react-native";
+import { View ,Dimensions,Text,PermissionsAndroid,Permission, ActivityIndicator, BackHandler, ScrollView, RefreshControl} from "react-native";
 import WebView from "react-native-webview";
-
+ import {url} from "../build_data/splash.json";
 
 
 
 const HomeScreen=()=>
 {
 
+
+  const [refr,setrefr]=useState(false)
+  const [canGoBack, setCanGoBack] = useState(false)
+  const [canGoForward, setCanGoForward] = useState(false)
+  const [currentUrl, setCurrentUrl] = useState('')
+  
+
+  let jsCode = `
+        var cookie={};
+        document.cookie.split('; ').forEach(function(i){cookie[i.split('=')[0]]=i.split('=')[1]});
+        document.querySelector('#email').value=cookie['email'] || '';
+        document.querySelector('#password').value=cookie['password'] || '';
+        document.querySelector('#login button').onclick = function(){
+            document.cookie = 'email='+document.querySelector('#email').value;
+            document.cookie = 'password='+document.querySelector('#password').value;
+        };
+    `;
+  const height=Dimensions.get('window').height
+  const width=Dimensions.get('window').width
+  const [load,setload]=React.useState(false)
+  const webviewRef = useRef()
+
+  const errorpage=()=>
+  {
+    return(
+      <View style={{flex:1}}>
+        <Text>hi</Text>
+         </View>
+    )
+  }
+ const backButtonHandler = () => {
+  if (webviewRef.current) webviewRef.current.goBack()
+  }
+
+  const refc=()=>
+{
+  if (webviewRef.current)  webviewRef.current.reload()
+
+  setrefr(true)
+}
+const  handleBackButton = ()=>{
+  if (webviewRef.current) webviewRef.current.goBack()
+    return true;
+  }
+const frontButtonHandler = () => {
+    if (webviewRef.current) webviewRef.current.goForward()
+  }
+
+
+
+  React.useEffect
+  {
+    
+    BackHandler.addEventListener('hardwareBackPress',handleBackButton)
+    ,[]
+  }
+ 
 React.useEffect(
-        ()=>{internetPermission()},
+        ()=>{internetPermission},
     )
     const internetPermission = async () => {
         try {
           const granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.CAMERA,
+            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
             {
               title: "Cool Photo App Camera Permission",
               message:
@@ -29,23 +87,75 @@ React.useEffect(
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             console.log("You can use the camera");
           } else {
+            internetPermission
             console.log("Camera permission denied");
           }
         } catch (err) {
           console.warn(err);
         }
       };
-    return(
+
+
+      return(
     
         <View style={{flex:1}}>    
+
+<ScrollView 
+
+
+refreshControl={<RefreshControl refreshing={refr}
+onRefresh={refc}
+></RefreshControl>}
+style={{height:height,width:width}}>
+
+  
              <WebView
-     source={{uri:"https://www.amazon.in/"}}
+
+source={{uri:url}}
+ref={webviewRef}
+style={{flex:1,height:height}}
+  //  onLoadProgress={()=>setload(true)}
+    onLoadEnd={()=>{setload(false),setrefr(false)}}
+    
+    pullToRefreshEnabled={true}
+    allowFileAccessFromFileURLs={true}
+    allowingReadAccessToURL={true}
+    allowsBackForwardNavigationGestures={true}
+    allowsInlineMediaPlayback={true}
+
+    
+    allowUniversalAccessFromFileURLs={true}
+    userAgent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"
+
+    message={console.log()}
+    onNavigationStateChange={navState => {
+      setCanGoBack(navState.canGoBack)
+      setCanGoForward(navState.canGoForward)
+      setCurrentUrl(navState.url)}}
+    
+
+      onMessage={(event)=> console.log(event.nativeEvent.data)}
+      injectedJavaScript={jsCode}
+    oninte
+   // onNavigationStateChange={}
+   onLoadStart={()=>setload(true)}
+     onHttpError={()=>errorpage()}
+   onError={()=>errorpage()}
+     javaScriptEnabled={true}
+     cacheEnabled={true}
+     sharedCookiesEnabled={true}
+     thirdPartyCookiesEnabled={true}
      >
 
 
      </WebView>
-     
-    </View>
+  {load &&   <ActivityIndicator style={{backgroundColor:'white',
+  height:50,width:50,borderRadius:50,position:"absolute",
+  top:height/2,alignSelf:'center'}}
+   size='large' color="gray" animating={true} ></ActivityIndicator>}
+</ScrollView>
+</View>
+
     )
 }
 

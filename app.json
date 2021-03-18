@@ -2,6 +2,10 @@
 
 {
   "name": "Demoapp",
-  "displayName": "xyz"
+  "displayName": "Dekuchbhimoapp",
+  "svgAppIcon": {
+    "foregroundPath": "./icon/icon-foreground.svg",
+    "backgroundPath": "./icon/icon-background.svg"
+  }
  
 }
