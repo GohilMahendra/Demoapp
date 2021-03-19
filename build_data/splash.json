@@ -16,7 +16,7 @@
     "SecondScreenName":"Home"
    , "splash_background_image":
         {
-            "URI":"../assets/images/spalsh_background.png",
+            "URI":"../assets/images/download.jpg",
             "height":"100%",
             "Width":"100%",
             "Blur":1
