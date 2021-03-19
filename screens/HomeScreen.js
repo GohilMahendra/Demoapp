@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { View ,Dimensions,Text,PermissionsAndroid,Permission, ActivityIndicator, BackHandler, ScrollView, RefreshControl} from "react-native";
 import WebView from "react-native-webview";
  import {url} from "../build_data/splash.json";
-
+import { imagedata } from "../build_data/imagedata";
 
 
 const HomeScreen=()=>
@@ -36,7 +36,9 @@ const HomeScreen=()=>
   {
     return(
       <View style={{flex:1}}>
-        <Text>hi</Text>
+        <Image source={imagedata.offline_screen}
+        style={{height:height,width:width}}
+        ></Image>
          </View>
     )
   }
@@ -47,6 +49,7 @@ const HomeScreen=()=>
   const refc=()=>
 {
   if (webviewRef.current)  webviewRef.current.reload()
+
 
   setrefr(true)
 }
