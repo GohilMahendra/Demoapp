@@ -3,23 +3,7 @@
 
 {
 
-    "Splash_backgroundcolor":"black",
-
-    "url":"https://medium.com/",
-
-    "Splash_titleText":"MY DEMO APP",
-    "Splash_titleTagLine":"WE ARE JUST CREATING...",
-    "Splash_titleFontcolor":"white",
-    "Splash_titleFontSize":45,
+    "url":"https://medium.com/"
 
 
-    "SecondScreenName":"Home"
-   , "splash_background_image":
-        {
-            "URI":"../assets/images/download.jpg",
-            "height":"100%",
-            "Width":"100%",
-            "Blur":1
-
-        }
 }

@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import {
   SafeAreaView,
@@ -14,16 +12,6 @@ import {
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, NavigationHelpersContext, useNavigation } from "@react-navigation/native";
 import {HomeScreen }  from "./screens";
-import  splash  from "./build_data/splash.json";
-
-import { imagedata } from "./build_data/imagedata";
-
-
-const hide=(imagedata==null)?true:false;
-
-const data=splash
-
-const SecondScreenName=data.SecondScreenName
 //import { nativeViewProps } from 'react-native-gesture-handler/lib/typescript/handlers/NativeViewGestureHandler';
 //import  navigation from "react-native-navigation";
 const HomeStackTab=createStackNavigator()
@@ -51,30 +39,20 @@ const App=()=>
   function splash({navigation}) {
     //
 
-    
-    const imagesource=imagedata.splash_screen
+   
  //   const test=require()   
-  setTimeout(()=>{navigation.replace(SecondScreenName),5000})
+  setTimeout(()=>{navigation.replace("Home"),5000})
      return(
 
      
        <View style={{flex:1,justifyContent:'center',
-       backgroundColor:data.Splash_backgroundcolor,  
        alignItems:'center'}}>
- {!hide && < Image source={imagesource}
-      blurRadius={data.splash_background_image.Blur}
-      style={{position:'absolute',height:'100%',}}
-      />}
+
     
         <Text style={{alignSelf:'center',textAlign:'center',
-      fontSize:data.Splash_titleFontSize,
      
       width:400,
-        color:data.Splash_titleFontcolor,
-        fontWeight:'bold'}}>{data.Splash_titleText}</Text>
-        <Text style={{alignSelf:'center',textAlign:'center',
-        height:100,width:250,margin:20,
-        fontSize:25,color:'#fff',fontWeight:'bold'}}>{data.Splash_titleTagLine}</Text>
+        fontWeight:'bold'}}>no</Text>
        </View>
      )
      
@@ -97,7 +75,7 @@ const App=()=>
       }}
       />
    
-      <HomeStackTab.Screen name={SecondScreenName} 
+      <HomeStackTab.Screen name="Home" 
       component={HomeScreen}
      
       options={{
